@@ -12,7 +12,6 @@
 
   :plugins [[lein-environ "1.1.0"]]
   :min-lein-version "2.0.0"
-  :main ^:skip-aot orders-distributor.core
   :target-path "target/%s"
   :uberjar-name "orders-distributor.jar"
   :profiles {:uberjar {:aot :all}})
