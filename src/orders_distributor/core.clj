@@ -15,4 +15,4 @@
 (defn -main [& [port]]
   (bot/set-webhook)
   (let [port (Integer. (or port (env :port) 5000))]
-    (jetty/run-jetty app {:port port :join? false}))
+    (jetty/run-jetty app {:port port :join? false})))
