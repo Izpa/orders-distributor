@@ -20,4 +20,4 @@
              :migration-dir "migrations"
              :db {:store :database
                   :migration-dir "migrations"
-                  :db :env/database_url}})
+                  :db ~(get (System/getenv) "DATABASE_URL")}})
