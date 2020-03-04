@@ -1,9 +1,7 @@
 (defproject orders-distributor "0.1.0-SNAPSHOT"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
                  [environ "1.1.0"]
                  [morse "0.2.4"]
                  [compojure "1.4.0"]
@@ -11,8 +9,7 @@
                  [ring/ring-json "0.4.0"]
                  [clj-http "3.9.1"]]
 
-  :plugins [[environ/environ.lein "0.3.1"]]
-  :hooks [environ.leiningen.hooks]
+  :plugins [[lein-environ "1.1.0"]]
   :min-lein-version "2.0.0"
   :target-path "target/%s"
   :uberjar-name "orders-distributor.jar"
