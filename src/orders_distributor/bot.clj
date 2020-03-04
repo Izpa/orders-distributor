@@ -1,7 +1,7 @@
 (ns orders-distributor.bot
   (:require [morse.handlers :as h]
             [morse.api :as api]
-            [rw-questioneer.settings :as s]))
+            [orders-distributor.settings :as s]))
 
 (defn set-webhook []
   (let [webhook-url (str "https://" s/domain s/telegram-handler-uri)]
