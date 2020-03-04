@@ -1,7 +1,6 @@
 (ns orders-distributor.core
   (:require [compojure.handler :refer [site]]
             [ring.middleware.json :as middleware]
-            [clojure.core.async :refer [<!!]]
             [environ.core :refer [env]]
             [ring.adapter.jetty :as jetty]
             [orders-distributor.bot :as bot]
