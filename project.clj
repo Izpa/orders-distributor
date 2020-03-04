@@ -9,7 +9,8 @@
                  [org.clojure/clojure "1.10.1"]
                  [org.postgresql/postgresql "42.2.3.jre7"]
                  [ring/ring-jetty-adapter "1.4.0"]
-                 [ring/ring-json "0.4.0"]]
+                 [ring/ring-json "0.4.0"]
+                 [toucan "1.15.0"]]
 
   :plugins [[lein-environ "1.1.0"]
             [migratus-lein "0.7.3"]]
