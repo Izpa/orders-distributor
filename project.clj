@@ -11,7 +11,8 @@
                  [ring/ring-json "0.4.0"]
                  [clj-http "3.9.1"]]
 
-  :plugins [[lein-environ "1.1.0"]]
+  :plugins [[environ/environ.lein "0.3.1"]]
+  :hooks [environ.leiningen.hooks]
   :min-lein-version "2.0.0"
   :target-path "target/%s"
   :uberjar-name "orders-distributor.jar"
