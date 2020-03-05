@@ -18,9 +18,9 @@
   (let [port (Integer. (or port (env :port) 5000))]
     (jetty/run-jetty app {:port port :join? false}))
   (clojure.pprint/pprint "azaza")
-  (clojure.pprint/pprint (env :database_url))
-  (clojure.pprint/pprint (h/korma-connection-map (env :database_url)))
-  (-> :database_url
+  (clojure.pprint/pprint (env :database-url))
+  (clojure.pprint/pprint (h/korma-connection-map (env :database-url)))
+  (-> :database-url
       env
       h/korma-connection-map
       db/set-default-db-connection!))
