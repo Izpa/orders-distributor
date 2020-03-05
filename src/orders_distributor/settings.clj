@@ -4,7 +4,7 @@
 (def acceptor-telegram-token (env :acceptor-telegram-token))
 (def distributor-telegram-token (env :distributor-telegram-token))
 (def domain (env :domain))
-(def redirect-telegram-id (env :redirect-telegram-id))
+(def distributor-chat-telegram-id (env :distributor-chat-telegram-id))
 
 (def base-telegram-handler-uri "/telegram-handler")
 (def acceptor-telegram-handler-uri (str base-telegram-handler-uri "/acceptor"))
