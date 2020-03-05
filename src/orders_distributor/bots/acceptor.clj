@@ -6,7 +6,7 @@
             [toucan.db :as db]))
 
 (defn set-webhook []
-  (let [webhook-url (str "https://" s/domain s/acceptor-handler-uri)]
+  (let [webhook-url (str "https://" s/domain s/acceptor-telegram-handler-uri)]
     (api/set-webhook s/acceptor-telegram-token webhook-url)))
 
 (defn add-telegram-user! [external-id first-name last-name username is-bot language-code]
