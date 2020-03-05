@@ -2,7 +2,8 @@
   (:require [compojure.handler :refer [site]]
             [environ.core :refer [env]]
             [heroku-database-url-to-jdbc.core :as h]
-            [orders-distributor.bot :as bot]
+            [orders-distributor.bots.acceptor :as acceptor-bot]
+            [orders-distributor.bots.distributor :as distributor-bot]
             [orders-distributor.web :as web]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :as middleware]
@@ -14,7 +15,8 @@
       middleware/wrap-json-response))
 
 (defn -main [& [port]]
-  (bot/set-webhook)
+  (acceptor-bot/set-webhook)
+  (distributor-bot/set-webhook)
   (let [port (Integer. (or port (env :port) 5000))]
     (jetty/run-jetty app {:port port :join? false}))
   (-> :database-url

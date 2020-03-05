@@ -1,4 +1,4 @@
-(ns orders-distributor.bot
+(ns orders-distributor.bots.distributor
   (:require [morse.handlers :as h]
             [morse.api :as api]
             [orders-distributor.models :as models]
@@ -6,8 +6,8 @@
             [toucan.db :as db]))
 
 (defn set-webhook []
-  (let [webhook-url (str "https://" s/domain s/telegram-handler-uri)]
-    (api/set-webhook s/telegram-token webhook-url)))
+  (let [webhook-url (str "https://" s/domain s/distributor-telegram-handler-uri)]
+    (api/set-webhook s/distributor-telegram-token webhook-url)))
 
 (defn add-telegram-user! [external-id first-name last-name username is-bot language-code]
   (db/insert! models/TelegramUser {:external_id external-id
