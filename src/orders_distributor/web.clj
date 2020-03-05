@@ -14,7 +14,7 @@
 (defroutes app
   (GET "/" []
        (splash))
-  (POST s/acceptor-handler-uri {body :body} (acceptor-bot/handler body))
-  (POST s/distributor-handler-uri {body :body} (distributor-bot/handler body))
+  (POST s/acceptor-telegram-handler-uri {body :body} (acceptor-bot/handler body))
+  (POST s/distributor-telegram-handler-uri {body :body} (distributor-bot/handler body))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
