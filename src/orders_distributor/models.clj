@@ -2,3 +2,5 @@
   (:require [toucan.models :as t]))
 
 (t/defmodel TelegramUser :telegram_user)
+(t/defmodel TelegramChat :telegram_chat)
+(t/defmodel TelegramMessage :telegram_message)
