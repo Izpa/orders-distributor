@@ -52,8 +52,8 @@
   [external-id text telegram-user-id telegram-chat-id telegram-date]
   (db/insert! models/TelegramMessage {:external_id external-id
                                       :text text
-                                      :telegram_user telegram-user-id
-                                      :telegram_chat telegram-chat-id
+                                      :telegram_user_id telegram-user-id
+                                      :telegram_chat_id telegram-chat-id
                                       :telegram_date telegram-date}))
 
 (defn external-id->telegram-message [external-id]
