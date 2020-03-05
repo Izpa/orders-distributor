@@ -31,9 +31,9 @@
 
 (h/defhandler handler
   (h/command "test" {{chat-id :id} :chat :as msg}
-             (api/send-text s/telegram-token chat-id msg))
+             (api/send-text s/acceptor-telegram-token chat-id msg))
   (h/command "external-id" {{external-id :id} :from {chat-id :id} :chat}
-             (api/send-text s/telegram-token chat-id external-id))
+             (api/send-text s/acceptor-telegram-token chat-id external-id))
   (h/command "id" {{external-id :id
                     first-name :first_name
                     last-name :last_name
@@ -41,7 +41,7 @@
                     is-bot :is_bot
                     language-code :language_code} :from
                    {chat-id :id} :chat}
-             (api/send-text s/telegram-token chat-id
+             (api/send-text s/acceptor-telegram-token chat-id
                             (get-or-create-telegram-user-id! external-id
                                                              first-name
                                                              last-name
@@ -49,4 +49,4 @@
                                                              is-bot
                                                              language-code)))
   (h/message {{chat-id :id} :chat :as msg}
-             (api/send-text s/telegram-token chat-id msg)))
+             (api/send-text s/acceptor-telegram-token chat-id msg)))
