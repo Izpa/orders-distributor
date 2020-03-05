@@ -10,12 +10,12 @@
     (api/set-webhook s/telegram-token webhook-url)))
 
 (defn add-telegram-user! [external-id first-name last-name username is-bot language-code]
-  (db/insert! models/TelegramUser {:external-id external-id
-                                   :first-name first-name
-                                   :last-name last-name
+  (db/insert! models/TelegramUser {:external_id external-id
+                                   :first_name first-name
+                                   :last_name last-name
                                    :username username
-                                   :is-bot is-bot
-                                   :language-code language-code}))
+                                   :is_bot is-bot
+                                   :language_code language-code}))
 
 (defn external-id->telegram-user [external-id]
   (db/select-one models/TelegramUser :external-id external-id))
