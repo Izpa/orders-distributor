@@ -18,7 +18,7 @@
                                    :language_code language-code}))
 
 (defn external-id->telegram-user [external-id]
-  (db/select-one models/TelegramUser :external-id external-id))
+  (db/select-one models/TelegramUser :external_id external-id))
 
 (defn get-or-create-telegram-user-id!
   [external-id first-name last-name username is-bot language-code]
@@ -36,7 +36,7 @@
              (api/send-text s/telegram-token chat-id external-id))
   (h/command "id" {{external-id :id
                     first-name :first_name
-                    last-name :last-name
+                    last-name :last_name
                     username :username
                     is-bot :is_bot
                     language-code :language_code} :from
