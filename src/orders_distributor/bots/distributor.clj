@@ -1,33 +1,12 @@
 (ns orders-distributor.bots.distributor
   (:require [morse.handlers :as h]
             [morse.api :as api]
-            [orders-distributor.models :as models]
-            [orders-distributor.settings :as s]
-            [toucan.db :as db]))
+            [orders-distributor.bots.common :as b]
+            [orders-distributor.settings :as s]))
 
 (defn set-webhook []
   (let [webhook-url (str "https://" s/domain s/distributor-telegram-handler-uri)]
     (api/set-webhook s/distributor-telegram-token webhook-url)))
-
-(defn add-telegram-user! [external-id first-name last-name username is-bot language-code]
-  (db/insert! models/TelegramUser {:external_id external-id
-                                   :first_name first-name
-                                   :last_name last-name
-                                   :username username
-                                   :is_bot is-bot
-                                   :language_code language-code}))
-
-(defn external-id->telegram-user [external-id]
-  (db/select-one models/TelegramUser :external_id external-id))
-
-(defn get-or-create-telegram-user-id!
-  [external-id first-name last-name username is-bot language-code]
-  (let [exist-telegram-user (external-id->telegram-user external-id)]
-    (if (some? exist-telegram-user)
-      (:id exist-telegram-user)
-      (-> (add-telegram-user! external-id first-name last-name username is-bot language-code)
-          (external-id->telegram-user external-id)
-          :id))))
 
 (h/defhandler handler
   (h/command "test" {{chat-id :id} :chat :as msg}
@@ -42,11 +21,11 @@
                     language-code :language_code} :from
                    {chat-id :id} :chat}
              (api/send-text s/distributor-telegram-token chat-id
-                            (get-or-create-telegram-user-id! external-id
-                                                             first-name
-                                                             last-name
-                                                             username
-                                                             is-bot
-                                                             language-code)))
+                            (b/get-or-create-telegram-user-id! external-id
+                                                               first-name
+                                                               last-name
+                                                               username
+                                                               is-bot
+                                                               language-code)))
   (h/message {{chat-id :id} :chat :as msg}
              (api/send-text s/distributor-telegram-token chat-id msg)))
