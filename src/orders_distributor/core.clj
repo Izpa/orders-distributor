@@ -17,6 +17,8 @@
   (bot/set-webhook)
   (let [port (Integer. (or port (env :port) 5000))]
     (jetty/run-jetty app {:port port :join? false}))
+  (clojure.pprint/pprint "azaza")
+  (clojure.pprint/pprint ((h/korma-connection-map (env :database_url))))
   (-> :database_url
       env
       h/korma-connection-map
