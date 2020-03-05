@@ -4,6 +4,7 @@
   :dependencies [[compojure "1.4.0"]
                  [clj-http "3.9.1"]
                  [environ "1.1.0"]
+                 [heroku-database-url-to-jdbc "0.2.2"]
                  [migratus "1.2.7"]
                  [morse "0.2.4"]
                  [org.clojure/clojure "1.10.1"]

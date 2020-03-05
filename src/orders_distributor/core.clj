@@ -1,6 +1,7 @@
 (ns orders-distributor.core
   (:require [compojure.handler :refer [site]]
             [environ.core :refer [env]]
+            [heroku-database-url-to-jdbc.core :as h]
             [orders-distributor.bot :as bot]
             [orders-distributor.web :as web]
             [ring.adapter.jetty :as jetty]
@@ -16,4 +17,7 @@
   (bot/set-webhook)
   (let [port (Integer. (or port (env :port) 5000))]
     (jetty/run-jetty app {:port port :join? false}))
-  (db/set-default-db-connection! (env :database_url)))
+  (-> :database_url
+      env
+      h/korma-connection-map
+      db/set-default-db-connection!))
