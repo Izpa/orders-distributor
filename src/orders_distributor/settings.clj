@@ -6,7 +6,6 @@
 (def domain (env :domain))
 (def redirect-telegram-id (env :redirect-telegram-id))
 
-
 (def base-telegram-handler-uri "/telegram-handler")
 (def acceptor-telegram-handler-uri (str base-telegram-handler-uri "/acceptor"))
 (def distributor-telegram-handler-uri (str base-telegram-handler-uri "/distributor"))
