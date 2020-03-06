@@ -1,6 +1,7 @@
 (ns orders-distributor.orders.core
   (:require [clojure.string :as str]
             [morse.api :as api]
+            [orders-distributor.bots.common :as t]
             [orders-distributor.orders.db :as db]
             [orders-distributor.settings :as s]))
 
@@ -34,10 +35,38 @@
                    chat-id
                    "Ищем исполнителя для вашего заказа, пожалуйста подождите...")))
 
-(defn accept [msg]
-  (let [order-id (int (-> msg
-                          :text
-                          remove-command))]
-    (api/send-text s/distributor-telegram-token
-                   s/distributor-chat-telegram-id
-                    )))
+(defn accept [order-id user-external-id callback-external-id message-data]
+  (let [user (-> user-external-id
+                 t/external-id->telegram-user)
+        {:keys [id first_name last_name username]} user
+        order (db/id->order)
+        {:keys [chat-id message-id text]} message-data
+        new-text (str text "\n Начал выполнять " (user-string first_name last_name username))]
+    (if user
+      (api/edit-text s/distributor-telegram-token chat-id message-id new-text)
+      (api/answer-callback s/distributor-telegram-token
+                           callback-external-id
+                           (str "Вы не можете принимать заказы, так как не написали боту в личку")
+                           true))))
+
+(defn route-callback [callback]
+  (let [{:keys [id data from message]} callback
+        user-external-id (:id from)
+        message-data {:chat-id (-> message
+                                   :from
+                                   :chat
+                                   :id)
+                      :message-id (:message_id message)
+                      :text (:text message)}
+        splitted-data (str/split data #" ")
+        command (-> splitted-data
+                    first
+                    keyword)
+        args (rest splitted-data)]
+    (case command
+      :accept (accept (-> args
+                          first
+                          int)
+                      user-external-id
+                      id
+                      message-data))))

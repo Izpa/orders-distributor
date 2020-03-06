@@ -16,5 +16,5 @@
   (h/command "accept" msg (-> msg
                               b/incoming-message!
                               orders/accept))
-  (h/callback-fn (fn [data] (println "Received callback: " data) "ok"))
+  (h/callback-fn (fn [data] (orders/route-callback data) "ok"))
   (h/message-fn (fn [msg] (println msg) "ok")))

@@ -6,7 +6,7 @@
                  [environ "1.1.0"]
                  [heroku-database-url-to-jdbc "0.2.2"]
                  [migratus "1.2.7"]
-                 [morse "0.2.4"]
+                 [morse "0.4.3"]
                  [org.clojure/clojure "1.10.1"]
                  [org.postgresql/postgresql "42.2.3.jre7"]
                  [ring/ring-jetty-adapter "1.4.0"]
