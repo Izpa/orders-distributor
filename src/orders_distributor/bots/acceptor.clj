@@ -1,6 +1,7 @@
 (ns orders-distributor.bots.acceptor
   (:require [morse.handlers :as h]
             [morse.api :as api]
+            [orders-distributor.orders :as order]
             [orders-distributor.bots.common :as b]
             [orders-distributor.settings :as s]))
 
@@ -9,10 +10,9 @@
     (api/set-webhook s/acceptor-telegram-token webhook-url)))
 
 (h/defhandler handler
-  (h/command "external-id" {{external-id :id} :from {chat-id :id} :chat}
-             (api/send-text s/acceptor-telegram-token chat-id external-id))
-  (h/command "test" {{chat-id :id} :chat :as msg}
+  (h/command "order" msg (-> msg
+                             b/incoming-message!
+                             orders/new))
+  (h/command "debug" {{chat-id :id} :chat :as msg}
              (api/send-text s/acceptor-telegram-token chat-id
-                            (b/incoming-message! msg)))
-  (h/message {{chat-id :id} :chat :as msg}
-             (api/send-text s/acceptor-telegram-token chat-id msg)))
+                            (b/incoming-message! msg))))

@@ -9,10 +9,6 @@
     (api/set-webhook s/distributor-telegram-token webhook-url)))
 
 (h/defhandler handler
-  (h/command "external-id" {{external-id :id} :from {chat-id :id} :chat}
-             (api/send-text s/distributor-telegram-token chat-id external-id))
-  (h/command "test" {{chat-id :id} :chat :as msg}
+  (h/command "debug" {{chat-id :id} :chat :as msg}
              (api/send-text s/distributor-telegram-token chat-id
-                            (b/incoming-message! msg)))
-  (h/message {{chat-id :id} :chat :as msg}
-             (api/send-text s/distributor-telegram-token chat-id msg)))
+                            (b/incoming-message! msg))))
