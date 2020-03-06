@@ -60,11 +60,11 @@
 (defn route-callback [callback]
   (let [{:keys [id data from message]} callback
         user-external-id (:id from)
-        (clojure.pprint/pprint message)
-        (clojure.pprint/pprint (-> message
-                                   :from
-                                   :chat
-                                   :id))
+        _ (clojure.pprint/pprint message)
+        _ (clojure.pprint/pprint (-> message
+                                     :from
+                                     :chat
+                                     :id))
         message-data {:chat-id (-> message
                                    :from
                                    :chat
