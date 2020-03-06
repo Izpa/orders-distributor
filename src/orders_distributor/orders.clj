@@ -11,7 +11,7 @@
                        :text
                        (str/split #" ")
                        rest
-                       #(apply str %))
+                       (str/join " "))
         order-to-distribute (str "Новый заказ\n"
                                  "От " first_name " " last_name " (" username ")\n"
                                  order-text)]
