@@ -9,10 +9,9 @@
         {{:keys [first_name last_name username]} :telegram_user} msg
         order-text (-> msg
                        :text)
-        order-to-distribute (->> order-text
-                                 (str/join " ")
-                                 (str "Новый заказ\n"
-                                      "От " first_name " " last_name " (" username ")\n"))]
+        order-to-distribute (str "Новый заказ\n"
+                                 "От " first_name " " last_name " (" username ")\n"
+                                 order-text)]
     (api/send-text s/distributor-telegram-token
                    s/distributor-chat-telegram-id
                    order-to-distribute)
