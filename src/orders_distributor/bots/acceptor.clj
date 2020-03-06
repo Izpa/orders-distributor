@@ -10,6 +10,9 @@
     (api/set-webhook s/acceptor-telegram-token webhook-url)))
 
 (h/defhandler handler
+  (h/command "start" {{chat-id :id} :chat}
+             (api/send-text s/acceptor-telegram-token chat-id
+                            "Чего изволите?"))
   (h/command "debug" {{chat-id :id} :chat :as msg}
              (api/send-text s/acceptor-telegram-token chat-id
                             (b/incoming-message! msg)))
