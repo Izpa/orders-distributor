@@ -23,10 +23,21 @@
         from-string (user-string first_name last_name username)
         order-to-distribute (str "Новый заказ #" order-id "\n"
                                  "От " from-string "\n"
-                                 order-text)]
+                                 order-text)
+        options {:reply_markup {:inline_keyboard [[{:text "Принять"
+                                                    :callback_data order-id}]]}}]
     (api/send-text s/distributor-telegram-token
                    s/distributor-chat-telegram-id
+                   options
                    order-to-distribute)
     (api/send-text s/acceptor-telegram-token
                    chat-id
                    "Ищем исполнителя для вашего заказа, пожалуйста подождите...")))
+
+(defn accept [msg]
+  (let [order-id (int (-> msg
+                          :text
+                          remove-command))]
+    (api/send-text s/distributor-telegram-token
+                   s/distributor-chat-telegram-id
+                    )))
