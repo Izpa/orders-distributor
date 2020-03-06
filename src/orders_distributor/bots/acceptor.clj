@@ -10,7 +10,7 @@
     (api/set-webhook s/acceptor-telegram-token webhook-url)))
 
 (h/defhandler handler
-  (h/command "order" msg (-> msg
+  (h/message msg (-> msg
                              b/incoming-message!
                              orders/new))
   (h/command "debug" {{chat-id :id} :chat :as msg}

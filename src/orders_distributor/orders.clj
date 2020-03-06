@@ -8,9 +8,7 @@
   (let [chat-id (get-in msg [:telegram_chat :external_id])
         {{:keys [first_name last_name username]} :telegram_user} msg
         order-text (-> msg
-                       :text
-                       (str/split #" ")
-                       (subvec 1))
+                       :text)
         order-to-distribute (->> order-text
                                  (str/join " ")
                                  (str "Новый заказ\n"
@@ -20,4 +18,4 @@
                    order-to-distribute)
     (api/send-text s/acceptor-telegram-token
                    chat-id
-                   "Ищем исполнителя для вашего заказа, пожалуйста подождите...")))
+                   "Заказ выполняется...")))
