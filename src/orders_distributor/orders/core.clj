@@ -21,7 +21,7 @@
                        :text
                        remove-command)
         from-string (user-string first_name last_name username)
-        order-to-distribute (str "Новый заказ " order-id "\n"
+        order-to-distribute (str "Новый заказ #" order-id "\n"
                                  "От " from-string "\n"
                                  order-text)]
     (api/send-text s/distributor-telegram-token
