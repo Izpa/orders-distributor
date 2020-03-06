@@ -12,4 +12,4 @@
   (h/command "debug" {{chat-id :id} :chat :as msg}
              (api/send-text s/distributor-telegram-token chat-id
                             (b/incoming-message! msg)))
-  (h/message-fn (fn [msg] (println msg))))
+  (h/message-fn (fn [msg] (do (println msg) "ok"))))
