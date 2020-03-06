@@ -15,4 +15,5 @@
                              orders/new))
   (h/command "debug" {{chat-id :id} :chat :as msg}
              (api/send-text s/acceptor-telegram-token chat-id
-                            (b/incoming-message! msg))))
+                            (b/incoming-message! msg)))
+  (h/message msg nil))
