@@ -1,7 +1,7 @@
 (ns orders-distributor.bots.acceptor
   (:require [morse.handlers :as h]
             [morse.api :as api]
-            [orders-distributor.orders :as order]
+            [orders-distributor.orders :as orders]
             [orders-distributor.bots.common :as b]
             [orders-distributor.settings :as s]))
 
