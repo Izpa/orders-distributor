@@ -45,7 +45,7 @@
   (let [user (-> user-external-id
                  t/external-id->telegram-user)
         {:keys [id first_name last_name username]} user
-        order (db/id->order)
+        order (db/id->order order-id)
         {:keys [chat-id message-id text]} message-data
         new-text (str text "\n Начал выполнять " (user-string first_name last_name username))]
     (if user
