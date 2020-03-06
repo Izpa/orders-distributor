@@ -11,7 +11,7 @@
                                    :language_code language-code}))
 
 (defn external-id->telegram-user [external-id]
-  (first (db/selec models/TelegramUser :external_id external-id)))
+  (first (db/select models/TelegramUser :external_id external-id)))
 
 (defn get-or-create-telegram-user!
   [external-id first-name last-name username is-bot language-code]
