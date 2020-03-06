@@ -19,7 +19,7 @@
   (let [exist-telegram-user (external-id->telegram-user external-id)]
     (if (some? exist-telegram-user)
       exist-telegram-user
-      (-> (add-telegram-user! external-id first-name last-name username is-bot language-code)
+      (do (add-telegram-user! external-id first-name last-name username is-bot language-code)
           (external-id->telegram-user external-id)))))
 
 (defn add-telegram-chat!
@@ -40,7 +40,7 @@
   (let [exist-telegram-chat (external-id->telegram-chat external-id)]
     (if (some? exist-telegram-chat)
       exist-telegram-chat
-      (-> (add-telegram-chat! external-id
+      (do (add-telegram-chat! external-id
                               first-name
                               last-name
                               username
@@ -67,7 +67,7 @@
   (let [exist-telegram-message (external-id->telegram-message external-id)]
     (if (some? exist-telegram-message)
       exist-telegram-message
-      (-> (add-telegram-message! external-id text telegram-user-id telegram-chat-id telegram-date)
+      (do (add-telegram-message! external-id text telegram-user-id telegram-chat-id telegram-date)
           (external-id->telegram-message external-id)))))
 
 (defn incoming-message! [{message-external-id :message_id
