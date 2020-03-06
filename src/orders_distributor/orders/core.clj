@@ -14,6 +14,11 @@
 (defn- user-string [first-name last-name username]
   (str first-name " " last-name " (" username ")"))
 
+(defn- command->str [command & args]
+  (str (name command)
+       " "
+       (str/join " " args)))
+
 (defn new [msg]
   (let [chat-id (get-in msg [:telegram_chat :external_id])
         {{:keys [first_name last_name username]} :telegram_user} msg
@@ -25,8 +30,9 @@
         order-to-distribute (str "Новый заказ #" order-id "\n"
                                  "От " from-string "\n"
                                  order-text)
+        callback-data (command->str :accept order-id)
         options {:reply_markup {:inline_keyboard [[{:text "Принять"
-                                                    :callback_data order-id}]]}}]
+                                                    :callback_data callback-data}]]}}]
     (api/send-text s/distributor-telegram-token
                    s/distributor-chat-telegram-id
                    options
