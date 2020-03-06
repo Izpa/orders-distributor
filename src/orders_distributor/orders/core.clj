@@ -10,8 +10,8 @@
                               (subvec 1))]
     (str/join " " clear-text-vector)))
 
-(defn- user-string [first-name last-name user-name]
-  (str first_name " " last_name " (" username ")"))
+(defn- user-string [first-name last-name username]
+  (str first-name " " last-name " (" username ")"))
 
 (defn new [msg]
   (let [chat-id (get-in msg [:telegram_chat :external_id])
