@@ -11,7 +11,7 @@
                                    :language_code language-code}))
 
 (defn external-id->telegram-user [external-id]
-  (db/select-one models/TelegramUser :external_id external-id))
+  (first (db/selec models/TelegramUser :external_id external-id)))
 
 (defn get-or-create-telegram-user!
   [external-id first-name last-name username is-bot language-code]
@@ -32,7 +32,7 @@
                                    :all_members_are_administrators all-members-are-administrators}))
 
 (defn external-id->telegram-chat [external-id]
-  (db/select-one models/TelegramChat :external_id external-id))
+  (first (db/select models/TelegramChat :external_id external-id)))
 
 (defn get-or-create-telegram-chat!
   [external-id first-name last-name username title chat-type all-members-are-administrators]
@@ -57,7 +57,7 @@
                                       :telegram_date telegram-date}))
 
 (defn external-id->telegram-message [external-id]
-  (db/select models/TelegramMessage :external_id external-id))
+  (first (db/select models/TelegramMessage :external_id external-id)))
 
 (defn get-or-create-telegram-message!
   [external-id text telegram-user-id telegram-chat-id telegram-date]
