@@ -4,7 +4,7 @@
             [toucan.hydrate :refer [hydrate]]))
 
 (defn create-order! [create-message-id]
-  (db/insert! models/TelegramUser {:create_message_id create-message-id}))
+  (db/insert! models/TelegramOrder {:create_message_id create-message-id}))
 
 (defn id->order [id]
   (hydrate (models/TelegramOrder id) [:create_message :telegram_user :telegram_chat]))
