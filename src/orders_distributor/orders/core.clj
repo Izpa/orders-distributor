@@ -68,7 +68,11 @@
         command (-> splitted-data
                     first
                     keyword)
-        args (rest splitted-data)]
+        args (rest splitted-data)
+        _ (clojure.pprint/pprint args)
+        _ (clojure.pprint/pprint (first args))
+        _ (clojure.pprint/pprint (int (first args)))
+        ]
     (case command
       :accept (accept (-> args
                           first
