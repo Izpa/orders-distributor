@@ -10,11 +10,11 @@
         order-text (-> msg
                        :text
                        (str/split #" ")
-                       rest
-                       #(str/join " " %))
-        order-to-distribute (str "Новый заказ\n"
-                                 "От " first_name " " last_name " (" username ")\n"
-                                 order-text)]
+                       (subvec 1))
+        order-to-distribute (->> order-text
+                                 (str/join " ")
+                                 (str "Новый заказ\n"
+                                      "От " first_name " " last_name " (" username ")\n"))]
     (api/send-text s/distributor-telegram-token
                    s/distributor-chat-telegram-id
                    order-to-distribute)
