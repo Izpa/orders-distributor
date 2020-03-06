@@ -46,9 +46,9 @@
                  t/external-id->telegram-user)
         {:keys [id first_name last_name username]} user
         order-id (Integer. (re-find  #"\d+" (first args)))
-        _ (println "asdfasdfasdfasdfasdfasdf " chat-id)
         order (db/id->order order-id)
         {:keys [chat-id message-id text]} message-data
+        _ (println "asdfasdfasdfasdfasdfasdf " chat-id)
         new-text (str text "\n Начал выполнять " (user-string first_name last_name username))]
     (if user
       (api/edit-text s/distributor-telegram-token chat-id message-id new-text)
