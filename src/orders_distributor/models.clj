@@ -9,4 +9,13 @@
   t/IModel
   (hydration-keys [_]
     [:telegram_chat]))
-(t/defmodel TelegramMessage :telegram_message)
+(t/defmodel TelegramMessage :telegram_message
+  t/IModel
+  (hydration-keys [_]
+    [:create_message
+     :accept_message
+     :unaccept_message
+     :cancel_message
+     :complete_message
+     :raiting_message]))
+(t/defmodel TelegramOrder :telegram_order)

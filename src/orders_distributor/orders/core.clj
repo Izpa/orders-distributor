@@ -1,19 +1,20 @@
-(ns orders-distributor.orders
+(ns orders-distributor.orders.core
   (:require [clojure.string :as str]
             [morse.api :as api]
-            [orders-distributor.bots.common :as b]
+            [orders-distributor.orders.db :as db]
             [orders-distributor.settings :as s]))
 
 (defn new [msg]
   (let [chat-id (get-in msg [:telegram_chat :external_id])
         {{:keys [first_name last_name username]} :telegram_user} msg
+        order-id (db/create-order! (:id msg))
         order-text (-> msg
                        :text
                        (str/split #" ")
                        (subvec 1))
         order-to-distribute (->> order-text
                                  (str/join " ")
-                                 (str "Новый заказ\n"
+                                 (str "Новый заказ " order-id "\n"
                                       "От " first_name " " last_name " (" username ")\n"))]
     (api/send-text s/distributor-telegram-token
                    s/distributor-chat-telegram-id
