@@ -48,7 +48,6 @@
         order-id (Integer. (re-find  #"\d+" (first args)))
         order (db/id->order order-id)
         {:keys [chat-id message-id text]} message-data
-        _ (println "asdfasdfasdfasdfasdfasdf " chat-id)
         new-text (str text "\n Начал выполнять " (user-string first_name last_name username))]
     (if user
       (api/edit-text s/distributor-telegram-token chat-id message-id new-text)
@@ -60,13 +59,7 @@
 (defn route-callback [callback]
   (let [{:keys [id data from message]} callback
         user-external-id (:id from)
-        _ (clojure.pprint/pprint message)
-        _ (clojure.pprint/pprint (-> message
-                                     :from
-                                     :chat
-                                     :id))
         message-data {:chat-id (-> message
-                                   :from
                                    :chat
                                    :id)
                       :message-id (:message_id message)
