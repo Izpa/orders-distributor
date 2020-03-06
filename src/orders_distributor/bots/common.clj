@@ -58,7 +58,9 @@
                                       :telegram_date telegram-date}))
 
 (defn external-id->telegram-message [external-id]
-  (first (db/select models/TelegramMessage :external_id external-id)))
+  (hydrate (first (db/select models/TelegramMessage :external_id external-id))
+              :telegram_user_id
+              :telegram_chat_id))
 
 (defn get-or-create-telegram-message!
   [external-id text telegram-user-id telegram-chat-id telegram-date]
