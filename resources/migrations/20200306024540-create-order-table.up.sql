@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS telegram_order (
   unaccept_message_id bigint REFERENCES telegram_message(id),
   cancel_message_id bigint REFERENCES telegram_message(id),
   complete_message_id bigint REFERENCES telegram_message(id),
-  raiting_message_id bigint REFERENCES telegram_message(id),
+  raiting_message_id bigint REFERENCES telegram_message(id)
   );
