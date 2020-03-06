@@ -3,7 +3,4 @@
 
 (t/defmodel TelegramUser :telegram_user)
 (t/defmodel TelegramChat :telegram_chat)
-(t/defmodel TelegramMessage :telegram_message
-  t/IModel
-  (hydration-keys [_]
-    [:telegram_user_id :telegram_chat_id]))
+(t/defmodel TelegramMessage :telegram_message)
