@@ -1,39 +1,25 @@
 (ns orders-distributor.core
-  (:require [clojure.core.async :refer [<!!]]
-            [clojure.string :as str]
+  (:require [compojure.handler :refer [site]]
             [environ.core :refer [env]]
-            [morse.handlers :as h]
-            [morse.polling :as p]
-            [morse.api :as t])
-  (:gen-class))
+            [heroku-database-url-to-jdbc.core :as h]
+            [orders-distributor.bots.acceptor :as acceptor-bot]
+            [orders-distributor.bots.distributor :as distributor-bot]
+            [orders-distributor.web :as web]
+            [ring.adapter.jetty :as jetty]
+            [ring.middleware.json :as middleware]
+            [toucan.db :as db]))
 
-; TODO: fill correct token
-(def token (env :telegram-token))
+(def app
+  (-> (site web/app)
+      (middleware/wrap-json-body {:keywords? true})
+      middleware/wrap-json-response))
 
-
-(h/defhandler handler
-
-  (h/command-fn "start"
-    (fn [{{id :id :as chat} :chat}]
-      (println "Bot joined new chat: " chat)
-      (t/send-text token id "Welcome to orders-distributor!")))
-
-  (h/command-fn "help"
-    (fn [{{id :id :as chat} :chat}]
-      (println "Help was requested in " chat)
-      (t/send-text token id "Help is on the way")))
-
-  (h/message-fn
-    (fn [{{id :id} :chat :as message}]
-      (println "Intercepted message: " message)
-      (t/send-text token id "I don't do a whole lot ... yet."))))
-
-
-(defn -main
-  [& args]
-  (when (str/blank? token)
-    (println "Please provde token in TELEGRAM_TOKEN environment variable!")
-    (System/exit 1))
-
-  (println "Starting the orders-distributor")
-  (<!! (p/start token handler)))
+(defn -main [& [port]]
+  (acceptor-bot/set-webhook)
+  (distributor-bot/set-webhook)
+  (let [port (Integer. (or port (env :port) 5000))]
+    (jetty/run-jetty app {:port port :join? false}))
+  (-> :database-url
+      env
+      h/korma-connection-map
+      db/set-default-db-connection!))
