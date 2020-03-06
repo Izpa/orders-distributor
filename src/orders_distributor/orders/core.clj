@@ -68,15 +68,11 @@
         command (-> splitted-data
                     first
                     keyword)
-        args (rest splitted-data)
-        _ (clojure.pprint/pprint args)
-        _ (clojure.pprint/pprint (first args))
-        _ (clojure.pprint/pprint (int (first args)))
-        ]
+        args (rest splitted-data)]
     (case command
-      :accept (accept (-> args
+      :accept (accept (->> args
                           first
-                          int)
+                           #(Integer. (re-find  #"\d+" %)))
                       user-external-id
                       id
                       message-data))))
